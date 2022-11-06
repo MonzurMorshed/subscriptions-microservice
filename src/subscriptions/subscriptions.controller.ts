@@ -34,8 +34,7 @@ export class SubscriptionsController {
 		@Param() param
 	){
 		const fcolumn: string = param.field;
-		const subscription = await this.subscriptionsService.findCustom({[
-			fcolumn]:param.id});
+		const subscription = await this.subscriptionsService.findCustom({[fcolumn]:param.id});
 		return response.status(HttpStatus.OK).json({
 			subscription
 		})

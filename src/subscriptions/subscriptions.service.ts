@@ -31,11 +31,17 @@ export class SubscriptionsService {
 		return this.subscriptionRepository.update(id, options);
 	}
 
-	async findCustom(){
-
+	async findCustom(id): Promise<Subscriptions[]>{
+		return this.subscriptionRepository.find({
+			where:id
+		});
 	}
 
-	async reomve(){
-
+	async remove(id: number): Promise<any>{
+		return this.subscriptionRepository.createQueryBuilder()
+			.delete()
+			.from(Subscriptions)
+			.where('id = :id',{id})
+			.execute();
 	}
 }
