@@ -1,50 +1,50 @@
 import { IsNotEmpty } from "class-validator";
 import { PrimaryGeneratedColumn, Column, Entity } from "typeorm";
 
-@Entity
-export class SubscriptionEntity {
+@Entity()
+export class Subscriptions {
 
 	@PrimaryGeneratedColumn()
 	id: number;
 	
-	@IsNotEmpty
-	@column
+	@IsNotEmpty()
+	@Column()
 	businessId: number;
 	
-	@IsNotEmpty	
-	@column
+	@IsNotEmpty	()
+	@Column()
 	applicationId: number;
 	
-	@IsNotEmpty	
-	@column
+	@IsNotEmpty()	
+	@Column()
 	subscriptionKey: number;
 	
-	@IsNotEmpty	
+	@IsNotEmpty()	
 	// 1 = monthly, 2 = yearly
-	@column
+	@Column()
 	planType: number;
 	
-	@IsNotEmpty
-	@Column
+	@IsNotEmpty()
+	@Column()
 	amount: number;
 	
-	@IsNotEmpty
-	@Column
+	@IsNotEmpty()
+	@Column()
 	currency: string;
 
-	@Column
+	@Column()
 	startDate: Date;
 
-	@Column
+	@Column()
 	endDate: Date;
 
-	@Column
+	@Column()
 	createdBy: string;
 
-	@Column
+	@Column()
 	createdAt: Date;
 
-	@Column
+	@Column()
 	updatedAt: Date;
 
 }
