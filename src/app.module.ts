@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { Subscriptions } from './subscriptions/entities/subscriptions.entity';
 import { SubscriptionsModule } from './subscriptions/subscriptions.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
@@ -12,7 +12,7 @@ import { SubscriptionsModule } from './subscriptions/subscriptions.module';
       username: 'root',
       password: '',
       database: 'subscriptions',
-      entities: [Subscription],
+      entities: [Subscriptions],
       synchronize: true,
       dropSchema: false
     }),

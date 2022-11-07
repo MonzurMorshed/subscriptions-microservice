@@ -1,5 +1,5 @@
 import { IsNotEmpty } from "class-validator";
-import { PrimaryGeneratedColumn, Column, Entity } from "typeorm";
+import { PrimaryGeneratedColumn, Column, Entity, UpdateDateColumn, CreateDateColumn, DeleteDateColumn } from "typeorm";
 
 @Entity()
 export class Subscriptions {
@@ -11,13 +11,13 @@ export class Subscriptions {
 	@Column()
 	businessId: number;
 	
-	@IsNotEmpty	()
+	@IsNotEmpty()
 	@Column()
 	applicationId: number;
 	
 	@IsNotEmpty()	
 	@Column()
-	subscriptionKey: number;
+	subscriptionKey: string;
 	
 	@IsNotEmpty()	
 	// 1 = monthly, 2 = yearly
@@ -41,10 +41,13 @@ export class Subscriptions {
 	@Column()
 	createdBy: string;
 
-	@Column()
-	createdAt: Date;
+	@CreateDateColumn()
+	created_at: Date; // Creation date
 
-	@Column()
-	updatedAt: Date;
+	@UpdateDateColumn()
+	updated_at: Date; // Last updated date
+
+	@DeleteDateColumn()
+	deleted_at: Date; // Deletion date
 
 }

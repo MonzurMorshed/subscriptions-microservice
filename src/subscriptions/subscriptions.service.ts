@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from 'typeorm';
+import { UpdateSubscriptionDto } from './dto/update-subscriptions.dto';
 import { Subscriptions } from './entities/subscriptions.entity';
 
 
@@ -20,21 +21,21 @@ export class SubscriptionsService {
 	}
 
 	async findAll(options = {}){
-		return this.subscriptionRepository.find(options);
+		return this.subscriptionRepository.find(options)
 	}
 
 	async findOne(id): Promise<Subscriptions>{
 		return this.subscriptionRepository.findOne({where:id});
     }
 
-	async update(id: number, options){
-		return this.subscriptionRepository.update(id, options);
+	async update(id: number, updateSubscriptionDto: UpdateSubscriptionDto){
+		return this.subscriptionRepository.update(id, updateSubscriptionDto);
 	}
 
 	async findCustom(id): Promise<Subscriptions[]>{
-		return this.subscriptionRepository.find({
+		return  this.subscriptionRepository.find({
 			where:id
-		});
+		}); 
 	}
 
 	async remove(id: number): Promise<any>{

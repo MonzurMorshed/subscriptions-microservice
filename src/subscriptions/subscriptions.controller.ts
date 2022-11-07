@@ -1,12 +1,13 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { SubscriptionsService } from "./subscriptions.service";
 import { Subscriptions } from "./entities/subscriptions.entity";
+import { UpdateSubscriptionDto } from "./dto/update-subscriptions.dto";
 
 @Controller('subscriptions')
 export class SubscriptionsController {
 	constructor(private readonly subscriptionsService: SubscriptionsService){}
 
-	@Post()
+	@Post('create')
 	async createSubscription(
 		@Res() response,
 		@Body() subscription: Subscriptions
@@ -15,17 +16,25 @@ export class SubscriptionsController {
 		const newSubscription = await this.subscriptionsService.createSubscriptions(subscription); 
 
 		return response.status(HttpStatus.CREATED).json({
+			message: 'success',
+			statusCode: 200,
 			newSubscription
 		});
 
 	}
 
-	@Get()
+	@Get('all')
 	async fetchAll(@Res() response){
 		const subscription = await this.subscriptionsService.findAll();
+		console.log(subscription);
 		return response.status(HttpStatus.OK).json({
 			subscription
 		})
+	}
+
+	@Get('/:id')
+	findOne(@Param('id') id: number) {
+		return this.subscriptionsService.findOne({id});
 	}
 
 	@Get('/:id/:field')
@@ -40,16 +49,16 @@ export class SubscriptionsController {
 		})
 	}
 
-	@Put('update')
+	@Put('update/:id')
 	async update(
 		@Param('id') id: number,
-		@Body() updateSubscriptionDto: SubscriptionsService
-	){
-		return this.subscriptionsService.update(id, updateSubscriptionDto);
+		@Body() subscriptions: Subscriptions
+	){	
+		return this.subscriptionsService.update(id, subscriptions);
 	}
 
 	@Delete(':id')
-	async remove(@Param('id') id: string){
+	async remove(@Param('id') id: number){
 		return this.subscriptionsService.remove(id);
 	}
 }
